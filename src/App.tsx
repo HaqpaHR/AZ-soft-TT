@@ -1,22 +1,26 @@
 import React from 'react';
 import users from './api/users';
+import { Link } from 'react-router-dom';
 import './App.css';
-// import { ContactList } from './components/ContactList/ContactList';
 import { Contact } from './types';
+import {CardContact} from "./components/CardContact/CardContact";
+import {ContactList} from "./components/ContactList/ContactList";
+// import { CardContact } from './components/CardContact/CardContact';
 
 
 type State = {
   contacts: Contact[],
-  // isAddingContact: boolean,
-    addContactName: string,
-    addContactPhone: string,
+  addContactName: string,
+  addContactPhone: string,
+  selectedContact: number,
 }
-
+console.log(users)
 class App extends React.Component<{}, State> {
   state = {
     contacts: users,
     addContactName: '',
     addContactPhone: '',
+    selectedContact: 0,
   }
 
     inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +36,15 @@ class App extends React.Component<{}, State> {
     }
 
     deleteHandler = (id: number) => {
-        this.setState({
-            contacts: this.state.contacts.filter(user => user.id !== id)
-        })
+      this.setState({
+        contacts: this.state.contacts.filter(user => user.id !== id)
+      })
+    }
+
+    selectedHandler = (id: number) => {
+      this.setState({
+        selectedContact: id
+      })
     }
 
     addContact = (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,12 +53,7 @@ class App extends React.Component<{}, State> {
         const newContact = {
             id: this.state.contacts.length + 1,
             name: this.state.addContactName,
-            username: '',
-            email: '',
-            address: '',
             phone: this.state.addContactPhone,
-            website: '',
-            company: '',
         };
 
         this.setState(prevState => ({
@@ -59,10 +64,7 @@ class App extends React.Component<{}, State> {
 
     }
 
-
-
   render() {
-    // @ts-ignore
       return (
         <div>
           <form
@@ -93,22 +95,10 @@ class App extends React.Component<{}, State> {
               Add
             </button>
           </form>
-          <ul className="list">
-              {this.state.contacts.map(user => (
-                  <li key={user.id}>
-                      <p>{user.name}</p>
-                      <p>{user.phone}</p>
-                      <button
-                          type="button"
-                          onClick={() => this.deleteHandler(user.id)}
-                      >
-                        Delete
-                      </button>
-                      <button>More...</button>
-                  </li>
-              ))
-              }
-          </ul>
+          <ContactList users={this.state.contacts} onDelete={this.deleteHandler} onMore={this.selectedHandler} />
+          <div>
+            <CardContact users={this.state.contacts} selectedContact={this.state.selectedContact}/>
+          </div>
         </div>
     )
   }
