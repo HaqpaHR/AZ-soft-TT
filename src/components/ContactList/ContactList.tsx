@@ -1,11 +1,11 @@
-import {CardContact} from "../CardContact/CardContact";
 import React from "react";
 import {Contact} from "../../types";
+import './ContactList.scss'
 
 type Props = {
   users: Contact[],
   onDelete: (id: number) => void,
-  onMore: (id: number) => void,
+  onMore: (user: Contact) => void,
 }
 
 
@@ -15,7 +15,10 @@ export class ContactList extends React.Component<Props, {}> {
     return (
       <ul className="list">
         {this.props.users.map(user => (
-          <li key={user.id}>
+          <li
+              key={user.id}
+              className="list__item"
+          >
             <p>{user.name}</p>
             <p>{user.phone}</p>
             <button
@@ -26,7 +29,7 @@ export class ContactList extends React.Component<Props, {}> {
             </button>
             <button
                 type="button"
-                onClick={()=> this.props.onMore(user.id)}
+                onClick={()=> this.props.onMore(user)}
             >
                 More...
             </button>

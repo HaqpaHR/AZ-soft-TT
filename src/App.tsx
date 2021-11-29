@@ -1,26 +1,24 @@
 import React from 'react';
 import users from './api/users';
-import { Link } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import { Contact } from './types';
 import {CardContact} from "./components/CardContact/CardContact";
 import {ContactList} from "./components/ContactList/ContactList";
-// import { CardContact } from './components/CardContact/CardContact';
 
 
 type State = {
   contacts: Contact[],
   addContactName: string,
   addContactPhone: string,
-  selectedContact: number,
+  selectedContact: Contact | null,
 }
-console.log(users)
+
 class App extends React.Component<{}, State> {
   state = {
     contacts: users,
     addContactName: '',
     addContactPhone: '',
-    selectedContact: 0,
+    selectedContact: null,
   }
 
     inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +39,9 @@ class App extends React.Component<{}, State> {
       })
     }
 
-    selectedHandler = (id: number) => {
+    selectedHandler = (user: Contact) => {
       this.setState({
-        selectedContact: id
+        selectedContact: user
       })
     }
 
@@ -65,12 +63,17 @@ class App extends React.Component<{}, State> {
     }
 
   render() {
-      return (
-        <div>
+
+    return (
+        <div className="container">
+          <header>
+            <h1 className="header__title">Contact List</h1>
+          </header>
           <form
+              className="input__form"
               onSubmit={this.addContact}
           >
-              <label className="input_label" htmlFor='input-contact'>
+              <label className="input__label" htmlFor='input-contact'>
                   Input name of new Contact:
                 <input
                     type='text'
@@ -79,7 +82,7 @@ class App extends React.Component<{}, State> {
                     onChange={this.inputHandler}
                 />
               </label>
-              <label className="input_label" htmlFor='input-phone'>
+              <label className="input__label" htmlFor='input-phone'>
                   Input phone of new Contact:
                   <input
                       type='number'
@@ -90,14 +93,25 @@ class App extends React.Component<{}, State> {
                   />
               </label>
             <button
+              className="button__submit"
               type="submit"
             >
               Add
             </button>
           </form>
-          <ContactList users={this.state.contacts} onDelete={this.deleteHandler} onMore={this.selectedHandler} />
-          <div>
-            <CardContact users={this.state.contacts} selectedContact={this.state.selectedContact}/>
+          <div className="list__container">
+            <ContactList users={this.state.contacts} onDelete={this.deleteHandler} onMore={this.selectedHandler} />
+          </div>
+          <div className="contact">
+            <h2>Contact Info:</h2>
+            {this.state.selectedContact ? (
+                <CardContact
+                    selected={this.state.selectedContact}
+                />
+            ) : <p className="App__content-container-none">
+              No user selected
+            </p>
+            }
           </div>
         </div>
     )
