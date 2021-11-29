@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/AZ-soft-TT//static/css/main.a085528d.chunk.css",
+    "main.js": "/AZ-soft-TT//static/js/main.b85653ec.chunk.js",
+    "main.js.map": "/AZ-soft-TT//static/js/main.b85653ec.chunk.js.map",
+    "runtime-main.js": "/AZ-soft-TT//static/js/runtime-main.ffd208ca.js",
+    "runtime-main.js.map": "/AZ-soft-TT//static/js/runtime-main.ffd208ca.js.map",
+    "static/js/2.f4292f68.chunk.js": "/AZ-soft-TT//static/js/2.f4292f68.chunk.js",
+    "static/js/2.f4292f68.chunk.js.map": "/AZ-soft-TT//static/js/2.f4292f68.chunk.js.map",
+    "index.html": "/AZ-soft-TT//index.html",
+    "static/css/main.a085528d.chunk.css.map": "/AZ-soft-TT//static/css/main.a085528d.chunk.css.map",
+    "static/js/2.f4292f68.chunk.js.LICENSE.txt": "/AZ-soft-TT//static/js/2.f4292f68.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ffd208ca.js",
+    "static/js/2.f4292f68.chunk.js",
+    "static/css/main.a085528d.chunk.css",
+    "static/js/main.b85653ec.chunk.js"
+  ]
+}
